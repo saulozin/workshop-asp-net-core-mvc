@@ -1,0 +1,81 @@
+﻿@model SallesWebMvc.Models.ViewModels.SalesRecordFormViewModel
+@using SallesWebMvc.Models.Enums
+
+@{
+    ViewData["Title"] = "Edit Sale";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <form asp-action="Edit">
+
+            <input type="hidden"
+                   asp-for="SalesRecord.Id" />
+
+            <div asp-validation-summary="All"
+                 class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SalesRecord.Date"></label>
+
+                <input asp-for="SalesRecord.Date"
+                       class="form-control" />
+
+                <span asp-validation-for="SalesRecord.Date"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SalesRecord.Amount"></label>
+
+                <input asp-for="SalesRecord.Amount"
+                       class="form-control" />
+
+                <span asp-validation-for="SalesRecord.Amount"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SalesRecord.Status"></label>
+
+                <select asp-for="SalesRecord.Status"
+                        asp-items="Html.GetEnumSelectList<SalleStatus>()"
+                        class="form-control">
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SalesRecord.SellerId"></label>
+
+                <select asp-for="SalesRecord.SellerId"
+                        asp-items="@(new SelectList(Model.Sellers, "Id", "Name"))"
+                        class="form-control">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit"
+                       value="Save"
+                       class="btn btn-primary" />
+
+                <a asp-action="SimpleSearch"
+                   class="btn btn-secondary">
+                    Back
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

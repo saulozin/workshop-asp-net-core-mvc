@@ -1,0 +1,83 @@
+﻿@using SallesWebMvc.Models.Enums
+@model SallesWebMvc.Models.ViewModels.SalesRecordFormViewModel
+
+@{
+    ViewData["Title"] = "Create Sale";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <form asp-action="Create">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SalesRecord.Date" class="control-label"></label>
+
+                <input asp-for="SalesRecord.Date"
+                       class="form-control" />
+
+                <span asp-validation-for="SalesRecord.Date"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SalesRecord.Amount" class="control-label"></label>
+
+                <input asp-for="SalesRecord.Amount"
+                       class="form-control" />
+
+                <span asp-validation-for="SalesRecord.Amount"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SalesRecord.Status" class="control-label"></label>
+
+                <select asp-for="SalesRecord.Status"
+                        asp-items="Html.GetEnumSelectList<SalleStatus>()"
+                        class="form-control">
+                </select>
+
+                <span asp-validation-for="SalesRecord.Status"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SalesRecord.SellerId" class="control-label"></label>
+
+                <select asp-for="SalesRecord.SellerId"
+                        asp-items="@(new SelectList(Model.Sellers, "Id", "Name"))"
+                        class="form-control">
+                </select>
+
+                <span asp-validation-for="SalesRecord.SellerId"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit"
+                       value="Create"
+                       class="btn btn-primary" />
+
+                <a asp-action="SimpleSearch"
+                   class="btn btn-secondary">
+                    Back
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
